@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="ShopSphere modern e-commerce storefront with secure checkout, cart, orders, and admin dashboard." />
+    <title>ShopSphere | Modern E-Commerce</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#home">ShopSphere</a>
+      <button class="nav-toggle" aria-label="Open navigation">☰</button>
+      <nav class="nav">
+        <a href="#home">Home</a>
+        <a href="#products">Products</a>
+        <a href="#cart">Cart <span id="cartCount">0</span></a>
+        <a href="#orders">Orders</a>
+      </nav>
+      <div class="header-actions">
+        <input id="globalSearch" type="search" placeholder="Search products" autocomplete="off" />
+       <div class="profile-wrap">
+  <button id="profileButton" class="profile-button" type="button">
+    <span class="profile-icon">👤</span>
+    <span id="profileButtonLabel">Login</span>
+  </button>
+
+  <div id="profileMenu" class="profile-menu" hidden></div>
+</div>
+      </div>
+    </header>
+
+    <main>
+      <section id="home" class="page active">
+        <div class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Fast delivery • Secure checkout • Curated picks</p>
+            <h1>Shop fresh tech, style, home, beauty, and fitness essentials.</h1>
+            <p>Discover featured deals, best sellers, and latest drops in a responsive storefront built for real buying flows.</p>
+            <a class="btn primary" href="#products">Shop Now</a>
+          </div>
+        </div>
+        <section class="band">
+          <div class="section-title"><h2>Product Categories</h2></div>
+          <div id="categories" class="category-row"></div>
+        </section>
+        <section class="band">
+          <div class="section-title"><h2>Featured Products</h2><a href="#products">View all</a></div>
+          <div id="featuredProducts" class="product-grid"></div>
+        </section>
+        <section class="band split">
+          <div>
+            <div class="section-title"><h2>Latest Products</h2></div>
+            <div id="latestProducts" class="compact-list"></div>
+          </div>
+          <div>
+            <div class="section-title"><h2>Best Sellers</h2></div>
+            <div id="bestSellers" class="compact-list"></div>
+          </div>
+        </section>
+      </section>
+
+      <section id="products" class="page">
+        <div class="toolbar">
+          <input id="searchInput" type="search" placeholder="Search by name or description" />
+          <select id="categoryFilter"><option value="">All categories</option></select>
+          <select id="sortInput">
+            <option value="latest">Latest</option>
+            <option value="price_asc">Price: Low to high</option>
+            <option value="price_desc">Price: High to low</option>
+            <option value="rating">Top rated</option>
+          </select>
+          <input id="minPrice" type="number" min="0" placeholder="Min price" />
+          <input id="maxPrice" type="number" min="0" placeholder="Max price" />
+          <select id="ratingFilter"><option value="">Any rating</option><option value="4">4+ stars</option><option value="3">3+ stars</option></select>
+        </div>
+        <div id="suggestions" class="suggestions"></div>
+        <div id="productGrid" class="product-grid"></div>
+        <div class="pagination">
+          <button id="prevPage" class="btn ghost">Previous</button>
+          <span id="pageLabel">Page 1</span>
+          <button id="nextPage" class="btn ghost">Next</button>
+        </div>
+      </section>
+
+      <section id="details" class="page">
+        <div id="productDetails" class="details"></div>
+      </section>
+
+      <section id="cart" class="page">
+        <h2>Shopping Cart</h2>
+        <div id="cartItems" class="cart-list"></div>
+        <aside id="cartSummary" class="summary"></aside>
+      </section>
+
+      <section id="checkout" class="page">
+        <h2>Checkout</h2>
+        <form id="checkoutForm" class="form-grid">
+          <input type="hidden" id="buyNowProductId">
+          <fieldset>
+            <legend>Select saved address</legend>
+            <div id="checkoutAddressBox"></div>
+            <button type="button" id="toggleAddressForm" class="btn ghost">Add a new address</button>
+            <div id="checkoutAddressFormWrap" hidden>
+              <div class="form-grid">
+                <input id="checkoutLabel" name="label" placeholder="Home / Office" />
+                <input id="checkoutLine1" name="line1" placeholder="Address line" />
+                <input id="checkoutCity" name="city" placeholder="City" />
+                <input id="checkoutState" name="state" placeholder="State" />
+                <input id="checkoutPostal" name="postal_code" placeholder="Postal code" />
+                <button type="button" id="saveCheckoutAddress" class="btn primary">Save address</button>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Payment</legend>
+            <select name="payment_method" required>
+              <option value="cod">Cash on Delivery</option>
+              <option value="credit_card">Credit Card</option>
+              <option value="debit_card">Debit Card</option>
+              <option value="upi">UPI</option>
+            </select>
+          </fieldset>
+          <button class="btn primary" type="submit">Place Order</button>
+        </form>
+      </section>
+
+      <section id="profile" class="page">
+        <h2>My Profile</h2>
+        <div id="profileSummary" class="profile-card"></div>
+        <div class="section-title"><h3>Saved Addresses</h3></div>
+        <div id="savedAddresses" class="compact-list"></div>
+        <form id="addressForm" class="form-grid profile-form">
+          <h3>Add a new address</h3>
+          <input name="label" placeholder="Home / Office" required />
+          <input name="line1" placeholder="Address line" required />
+          <input name="city" placeholder="City" required />
+          <input name="state" placeholder="State" required />
+          <input name="postal_code" placeholder="Postal code" required />
+          <button class="btn primary" type="submit">Save address</button>
+        </form>
+      </section>
+
+      <section id="orders" class="page">
+        <h2>Order History</h2>
+        <div id="ordersList" class="compact-list"></div>
+      </section>
+    </main>
+
+    <div id="authModal" class="modal" aria-hidden="true">
+      <form id="authForm" class="modal-panel">
+        <button type="button" class="modal-close" aria-label="Close">×</button>
+        <h2>Login or Register</h2>
+        <input type="hidden" id="authModeInput" name="mode" value="login" />
+        <input id="fullNameInput" name="full_name" placeholder="Full name" autocomplete="name" hidden />
+        <input name="email" type="email" placeholder="Email" required />
+        <input name="password" type="password" placeholder="Password" required />
+        <label><input name="remember_me" type="checkbox" /> Remember me</label>
+        <div class="row auth-actions">
+          <button type="submit" class="btn primary" id="loginModeButton">Login</button>
+          <button type="button" class="btn ghost" id="registerModeButton">Register</button>
+        </div>
+        <a href="mailto:support@example.com">Forgot password?</a>
+      </form>
+    </div>
+
+    <footer class="footer">
+      <p>© 2026 ShopSphere. Secure commerce demo with JWT auth, MySQL, inventory, coupons, and payments.</p>
+    </footer>
+    <div id="toast" class="toast"></div>
+    <script src="assets/app.js" defer></script>
+  </body>
+</html>
