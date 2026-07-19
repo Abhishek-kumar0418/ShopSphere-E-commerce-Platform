@@ -54,6 +54,10 @@ app.use("/api/admin", adminRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(port, () => {
-  console.log(`Commerce API listening on http://localhost:${port}`);
-});
+if (!process.env.VERCEL) {
+  app.listen(port, () => {
+    console.log(`Commerce API listening on http://localhost:${port}`);
+  });
+}
+
+export default app;

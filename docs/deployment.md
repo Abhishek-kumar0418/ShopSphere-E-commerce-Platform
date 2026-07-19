@@ -67,6 +67,38 @@ Expected response:
 { "status": "ok" }
 ```
 
+## Vercel Deployment
+
+The repository includes `vercel.json` and `api/index.js` so Vercel can deploy the Express API as a serverless function while serving `frontend/` as static files.
+
+1. Provision a hosted MySQL database. Vercel does not provide a local MySQL server for serverless functions.
+2. Import the repository into Vercel.
+3. Keep the project root as the Vercel root directory.
+4. Add these Vercel environment variables:
+
+```text
+NODE_ENV=production
+DB_HOST=<mysql-host>
+DB_PORT=3306
+DB_USER=<mysql-user>
+DB_PASSWORD=<mysql-password>
+DB_NAME=commerce_db
+JWT_SECRET=<long-random-secret>
+JWT_EXPIRES_IN=7d
+FRONTEND_ORIGIN=https://your-vercel-domain.vercel.app
+TAX_RATE=0.18
+SHIPPING_FLAT=49
+```
+
+5. Load `backend/database/schema.sql` and, for a demo deployment, `backend/database/seed.sql` into the hosted database.
+6. Deploy and verify:
+
+```bash
+curl https://your-vercel-domain.vercel.app/health
+```
+
+The frontend uses same-origin API requests (`/api`), so no production URL edit is needed for Vercel.
+
 ## Frontend Deployment
 
 The backend serves `frontend/index.html` and assets automatically from the Express app.
